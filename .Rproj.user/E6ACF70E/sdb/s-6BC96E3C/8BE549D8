@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# Load the NEI & SCC data frames.\nNEI <- readRDS(\"summarySCC_PM25.rds\")\nSCC <- readRDS(\"Source_Classification_Code.rds\")\n\n# Gather the subset of the NEI data which corresponds to vehicles\nvehicles <- grepl(\"vehicle\", SCC$SCC.Level.Two, ignore.case=TRUE)\nvehiclesSCC <- SCC[vehicles,]$SCC\nvehiclesNEI <- NEI[NEI$SCC %in% vehiclesSCC,]\n\n# Subset the vehicles NEI data to Baltimore's fip\nbaltimoreVehiclesNEI <- vehiclesNEI[vehiclesNEI$fips==\"24510\",]\n\npng(\"plot5.png\",width=480,height=480,units=\"px\",bg=\"transparent\")\n\nlibrary(ggplot2)\n\nggp <- ggplot(baltimoreVehiclesNEI,aes(factor(year),Emissions)) +\n  geom_bar(stat=\"identity\",fill=\"grey\",width=0.75) +\n  theme_bw() +  guides(fill=FALSE) +\n  labs(x=\"year\", y=expression(\"Total PM\"[2.5]*\" Emission (10^5 Tons)\")) + \n  labs(title=expression(\"PM\"[2.5]*\" Motor Vehicle Source Emissions in Baltimore from 1999-2008\"))\n\nprint(ggp)\n\ndev.off()",
+    "created" : 1464514417037.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3144621659",
+    "id" : "8BE549D8",
+    "lastKnownWriteTime" : 1464514427,
+    "path" : "C:/Users/Tom/Desktop/Data Science/Course4/ExData2/Plot5.R",
+    "project_path" : "Plot5.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

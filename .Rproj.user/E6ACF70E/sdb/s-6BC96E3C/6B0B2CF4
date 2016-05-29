@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# Load the NEI & SCC data frames.\nNEI <- readRDS(\"summarySCC_PM25.rds\")\nSCC <- readRDS(\"Source_Classification_Code.rds\")\n\n# Aggregate by sum the total emissions by year\naggTotals <- aggregate(Emissions ~ year,NEI, sum)\n\npng(\"plot1.png\",width=480,height=480,units=\"px\",bg=\"transparent\")\n\nbarplot(\n  (aggTotals$Emissions)/10^6,\n  names.arg=aggTotals$year,\n  xlab=\"Year\",\n  ylab=\"PM2.5 Emissions (10^6 Tons)\",\n  main=\"Total PM2.5 Emissions From All US Sources\"\n)\n\ndev.off()",
+    "created" : 1464513909385.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2870060170",
+    "id" : "6B0B2CF4",
+    "lastKnownWriteTime" : 1464514007,
+    "path" : "C:/Users/Tom/Desktop/Data Science/Course4/ExData2/Plot1.R",
+    "project_path" : "Plot1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,18 @@
+{
+    "contents" : "\n# Load the NEI & SCC data frames.\nNEI <- readRDS(\"summarySCC_PM25.rds\")\nSCC <- readRDS(\"Source_Classification_Code.rds\")\n\n# Subset coal combustion related NEI data\ncombustionRelated <- grepl(\"comb\", SCC$SCC.Level.One, ignore.case=TRUE)\ncoalRelated <- grepl(\"coal\", SCC$SCC.Level.Four, ignore.case=TRUE) \ncoalCombustion <- (combustionRelated & coalRelated)\ncombustionSCC <- SCC[coalCombustion,]$SCC\ncombustionNEI <- NEI[NEI$SCC %in% combustionSCC,]\n\npng(\"plot4.png\",width=480,height=480,units=\"px\",bg=\"transparent\")\n\nlibrary(ggplot2)\n\nggp <- ggplot(combustionNEI,aes(factor(year),Emissions/10^5)) +\n  geom_bar(stat=\"identity\",fill=\"grey\",width=0.75) +\n  theme_bw() +  guides(fill=FALSE) +\n  labs(x=\"year\", y=expression(\"Total PM\"[2.5]*\" Emission (10^5 Tons)\")) + \n  labs(title=expression(\"PM\"[2.5]*\" Coal Combustion Source Emissions Across US from 1999-2008\"))\n\nprint(ggp)\n\ndev.off()",
+    "created" : 1464514289319.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "695490238",
+    "id" : "E8846BC2",
+    "lastKnownWriteTime" : 1464514301,
+    "path" : "C:/Users/Tom/Desktop/Data Science/Course4/ExData2/Plot4.R",
+    "project_path" : "Plot4.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
